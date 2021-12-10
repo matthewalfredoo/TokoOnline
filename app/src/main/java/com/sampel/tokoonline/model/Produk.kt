@@ -1,8 +1,10 @@
 package com.sampel.tokoonline.model
 
-class Produk {
+import java.io.Serializable
+
+class Produk: Serializable {
     lateinit var nama: String
-    var harga: Int = 0
+    lateinit var harga: String
     var gambar: Int = 0
 
 }
