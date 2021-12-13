@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_marginTop="10dp">
-            
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -33,11 +33,9 @@
                 <EditText
                     android:id="@+id/editTextNoKTPRegister"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:hint="Nomor KTP"
-                    android:inputType="number"
-                    android:singleLine="true"
-                    android:maxLines="1"/>
+                    android:inputType="number"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -62,7 +60,7 @@
                 <EditText
                     android:id="@+id/editTextNamaLengkapRegister"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:hint="Nama Lengkap"
                     android:inputType="text"
                     android:singleLine="true"
@@ -91,7 +89,7 @@
                 <EditText
                     android:id="@+id/editTextNoHPRegister"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:hint="Nomor HP"
                     android:inputType="phone"
                     android:singleLine="true"
@@ -120,7 +118,7 @@
                 <EditText
                     android:id="@+id/editTextEmailRegister"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:hint="Email"
                     android:singleLine="true"
                     android:inputType="textEmailAddress"
@@ -150,7 +148,7 @@
                 <EditText
                     android:id="@+id/editTextPasswordRegister"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:hint="Password"
                     android:inputType="textPassword"
                     android:singleLine="true"
@@ -192,17 +190,17 @@
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:background="#CACACA"/>
-            
+
         </LinearLayout>
 
         <RelativeLayout
             android:foreground="?android:attr/selectableItemBackground"
-            android:background="#FFFFFF"
+            android:background="@drawable/customborder"
             android:padding="13dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp">
-            
+
             <ImageView
                 android:id="@+id/imageViewGoogleRegister"
                 android:layout_width="25dp"
@@ -221,5 +219,12 @@
         </RelativeLayout>
 
     </LinearLayout>
+
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/progressBarRegister"
+        android:layout_centerInParent="true"
+        android:layout_width="30dp"
+        android:layout_height="30dp" />
 
 </RelativeLayout>

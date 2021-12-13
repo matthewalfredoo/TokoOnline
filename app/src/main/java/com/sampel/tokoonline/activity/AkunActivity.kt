@@ -1,5 +1,6 @@
 package com.sampel.tokoonline.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -8,8 +9,8 @@ import com.sampel.tokoonline.helper.SharedPref
 
 class AkunActivity : AppCompatActivity() {
 
-    private lateinit var btn_prosesLogin: Button
-    private lateinit var btn_prosesRegister: Button
+    private lateinit var btnProsesLogin: Button
+    private lateinit var btnProsesRegister: Button
 
     lateinit var s: SharedPref
 
@@ -17,12 +18,21 @@ class AkunActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_akun)
 
-        btn_prosesLogin = findViewById(R.id.btn_prosesLogin)
+        btnProsesLogin = findViewById(R.id.btn_prosesLogin)
+        btnProsesRegister = findViewById(R.id.btn_prosesRegister)
 
         s = SharedPref(this)
 
-        btn_prosesLogin.setOnClickListener {
-            s.setStatusLogin(true)
+        mainButton()
+    }
+
+    private fun mainButton() {
+        btnProsesLogin.setOnClickListener {
+            startActivity(Intent(this, LoginActivity::class.java))
+        }
+
+        btnProsesRegister.setOnClickListener {
+            startActivity(Intent(this, RegisterActivity::class.java))
         }
     }
 }
