@@ -67,7 +67,8 @@ class LoginActivity : AppCompatActivity() {
                     if(resp.success == 1) {
                         Toast.makeText(this@LoginActivity, "Selamat datang " + resp.user.namaLengkap, Toast.LENGTH_SHORT).show()
                         s.setStatusLogin(true)
-                        s.setUser(resp.user)
+//                        s.setUser(resp.user)
+                        s.setUserModel(resp.user)
                         val intent = Intent(this@LoginActivity, MainActivity::class.java)
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                         startActivity(intent)

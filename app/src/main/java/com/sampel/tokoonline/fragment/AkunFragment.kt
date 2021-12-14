@@ -11,6 +11,7 @@ import android.widget.TextView
 import com.sampel.tokoonline.MainActivity
 import com.sampel.tokoonline.R
 import com.sampel.tokoonline.activity.AkunActivity
+import com.sampel.tokoonline.activity.LoginActivity
 import com.sampel.tokoonline.helper.SharedPref
 
 class AkunFragment : Fragment() {
@@ -45,11 +46,18 @@ class AkunFragment : Fragment() {
     }
 
     fun setData() {
-        val user = s.getUser()
-        textViewNamaAkun.text = user.namaLengkap
-        textViewNoKTPAkun.text = user.noKTP
-        textViewEmailAkun.text = user.email
-        textViewNoHPAkun.text = user.noHP
+        if(s.getUser() == null) {
+            val intent = Intent(this.requireActivity(), LoginActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+            return
+        }
+
+        val user = s.getUserModel()
+        textViewNamaAkun.text = user?.namaLengkap
+        textViewNoKTPAkun.text = user?.noKTP
+        textViewEmailAkun.text = user?.email
+        textViewNoHPAkun.text = user?.noHP
     }
 
     private fun init(view: View) {
