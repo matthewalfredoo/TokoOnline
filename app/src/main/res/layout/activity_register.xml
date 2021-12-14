@@ -35,6 +35,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Nomor KTP"
+                    android:maxLength="16"
                     android:inputType="number"/>
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -91,6 +92,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Nomor HP"
+                    android:maxLength="15"
                     android:inputType="phone"
                     android:singleLine="true"
                     android:maxLines="1"/>
