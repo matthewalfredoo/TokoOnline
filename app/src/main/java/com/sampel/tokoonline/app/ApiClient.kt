@@ -1,6 +1,8 @@
 package com.sampel.tokoonline.app
 
 import com.google.gson.GsonBuilder
+import com.sampel.tokoonline.helper.Helper
+import com.sampel.tokoonline.helper.Helper.Companion.BASE_URL
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -8,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object ApiClient {
-    private const val BASE_URL = "http://172.16.177.133:8000/api/"
+    private val BASE_URL = Helper.BASE_URL + "api/"
     private val client: Retrofit
         get() {
             val gson = GsonBuilder()

@@ -11,7 +11,13 @@ import androidx.viewpager.widget.ViewPager
 import com.sampel.tokoonline.R
 import com.sampel.tokoonline.adapter.AdapterProduk
 import com.sampel.tokoonline.adapter.AdapterSlider
+import com.sampel.tokoonline.app.ApiClient
+import com.sampel.tokoonline.model.ItemMenuKantinModel
+import com.sampel.tokoonline.model.ItemMenuKantinResponModel
 import com.sampel.tokoonline.model.Produk
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,16 +36,21 @@ class HomeFragment() : Fragment() {
     lateinit var rvProdukTerlaris: RecyclerView
     lateinit var rvElektronik: RecyclerView
 
+    private var listItemMenuKantin: ArrayList<ItemMenuKantinModel> = ArrayList()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
         val view: View = inflater.inflate(R.layout.fragment_home, container, false)
 
-        vpSlider = view.findViewById(R.id.vp_slider)
-        rvProduk = view.findViewById(R.id.rv_produk)
-        rvProdukTerlaris = view.findViewById(R.id.rv_produkTerlaris)
-        rvElektronik = view.findViewById(R.id.rv_elektronik)
+        init(view)
+        getItemMenuKantin()
+        displayItemMenuKantin()
 
+        return view
+    }
+
+    fun displayItemMenuKantin() {
         val arrSlider = ArrayList<Int>()
         arrSlider.add(R.drawable.slider1)
         arrSlider.add(R.drawable.slider2)
@@ -57,93 +68,116 @@ class HomeFragment() : Fragment() {
         val layoutManager3 = LinearLayoutManager(activity)
         layoutManager3.orientation = LinearLayoutManager.HORIZONTAL
 
-        rvProduk.adapter = AdapterProduk(arrProduk)
+        rvProduk.adapter = AdapterProduk(this.requireActivity(), listItemMenuKantin)
         rvProduk.layoutManager = layoutManager
 
-        rvProdukTerlaris.adapter = AdapterProduk(arrProdukTerlaris)
+        rvProdukTerlaris.adapter = AdapterProduk(this.requireActivity(), listItemMenuKantin)
         rvProdukTerlaris.layoutManager = layoutManager2
 
-        rvElektronik.adapter = AdapterProduk(arrElektronik)
+        rvElektronik.adapter = AdapterProduk(this.requireActivity(), listItemMenuKantin)
         rvElektronik.layoutManager = layoutManager3
-
-        return view
     }
 
+    fun getItemMenuKantin() {
+        ApiClient.instanceRetrofit.getProduk().enqueue(object : Callback<ItemMenuKantinResponModel> {
+            override fun onResponse(
+                call: Call<ItemMenuKantinResponModel>,
+                response: Response<ItemMenuKantinResponModel>
+            ) {
+                val resp = response.body()!!
+                if(resp.success == 1){
+                    listItemMenuKantin = resp.itemMenuKantin
+                    displayItemMenuKantin()
+                }
+            }
 
+            override fun onFailure(call: Call<ItemMenuKantinResponModel>, t: Throwable) {
 
-    val arrProduk: ArrayList<Produk>get() {
-        val arr = ArrayList<Produk>()
+            }
 
-        val p1: Produk = Produk()
-        p1.nama = "HP Keren"
-        p1.harga = "Rp. 5.900.000"
-        p1.gambar = R.drawable.hp
-
-        val p2: Produk = Produk()
-        p2.nama = "Laptop Gahar"
-        p2.harga = "Rp. 16.800.000"
-        p2.gambar = R.drawable.laptop
-
-        val p3: Produk = Produk()
-        p3.nama = "Smartwatch Cantik"
-        p3.harga = "Rp. 3.850.000"
-        p3.gambar = R.drawable.smartwatch
-
-        arr.add(p1)
-        arr.add(p2)
-        arr.add(p3)
-
-        return arr
+        })
     }
 
-    val arrElektronik: ArrayList<Produk>get() {
-        val arr = ArrayList<Produk>()
-
-        val p1: Produk = Produk()
-        p1.nama = "HP Keren"
-        p1.harga = "Rp. 5.900.000"
-        p1.gambar = R.drawable.hp
-
-        val p2: Produk = Produk()
-        p2.nama = "Laptop Gahar"
-        p2.harga = "Rp. 16.800.000"
-        p2.gambar = R.drawable.laptop
-
-        val p3: Produk = Produk()
-        p3.nama = "Smartwatch Cantik"
-        p3.harga = "Rp. 3.850.000"
-        p3.gambar = R.drawable.smartwatch
-
-        arr.add(p1)
-        arr.add(p2)
-        arr.add(p3)
-
-        return arr
+    fun init(view: View) {
+        vpSlider = view.findViewById(R.id.vp_slider)
+        rvProduk = view.findViewById(R.id.rv_produk)
+        rvProdukTerlaris = view.findViewById(R.id.rv_produkTerlaris)
+        rvElektronik = view.findViewById(R.id.rv_elektronik)
     }
 
-    val arrProdukTerlaris: ArrayList<Produk>get() {
-        val arr = ArrayList<Produk>()
+//    val arrProduk: ArrayList<Produk>get() {
+//        val arr = ArrayList<Produk>()
+//
+//        val p1: Produk = Produk()
+//        p1.nama = "HP Keren"
+//        p1.harga = "Rp. 5.900.000"
+//        p1.gambar = R.drawable.hp
+//
+//        val p2: Produk = Produk()
+//        p2.nama = "Laptop Gahar"
+//        p2.harga = "Rp. 16.800.000"
+//        p2.gambar = R.drawable.laptop
+//
+//        val p3: Produk = Produk()
+//        p3.nama = "Smartwatch Cantik"
+//        p3.harga = "Rp. 3.850.000"
+//        p3.gambar = R.drawable.smartwatch
+//
+//        arr.add(p1)
+//        arr.add(p2)
+//        arr.add(p3)
+//
+//        return arr
+//    }
 
-        val p1: Produk = Produk()
-        p1.nama = "HP Keren"
-        p1.harga = "Rp. 5.900.000"
-        p1.gambar = R.drawable.hp
+//    val arrElektronik: ArrayList<Produk>get() {
+//        val arr = ArrayList<Produk>()
+//
+//        val p1: Produk = Produk()
+//        p1.nama = "HP Keren"
+//        p1.harga = "Rp. 5.900.000"
+//        p1.gambar = R.drawable.hp
+//
+//        val p2: Produk = Produk()
+//        p2.nama = "Laptop Gahar"
+//        p2.harga = "Rp. 16.800.000"
+//        p2.gambar = R.drawable.laptop
+//
+//        val p3: Produk = Produk()
+//        p3.nama = "Smartwatch Cantik"
+//        p3.harga = "Rp. 3.850.000"
+//        p3.gambar = R.drawable.smartwatch
+//
+//        arr.add(p1)
+//        arr.add(p2)
+//        arr.add(p3)
+//
+//        return arr
+//    }
 
-        val p2: Produk = Produk()
-        p2.nama = "Laptop Gahar"
-        p2.harga = "Rp. 16.800.000"
-        p2.gambar = R.drawable.laptop
-
-        val p3: Produk = Produk()
-        p3.nama = "Smartwatch Cantik"
-        p3.harga = "Rp. 3.850.000"
-        p3.gambar = R.drawable.smartwatch
-
-        arr.add(p1)
-        arr.add(p2)
-        arr.add(p3)
-
-        return arr
-    }
+//    val arrProdukTerlaris: ArrayList<Produk>get() {
+//        val arr = ArrayList<Produk>()
+//
+//        val p1: Produk = Produk()
+//        p1.nama = "HP Keren"
+//        p1.harga = "Rp. 5.900.000"
+//        p1.gambar = R.drawable.hp
+//
+//        val p2: Produk = Produk()
+//        p2.nama = "Laptop Gahar"
+//        p2.harga = "Rp. 16.800.000"
+//        p2.gambar = R.drawable.laptop
+//
+//        val p3: Produk = Produk()
+//        p3.nama = "Smartwatch Cantik"
+//        p3.harga = "Rp. 3.850.000"
+//        p3.gambar = R.drawable.smartwatch
+//
+//        arr.add(p1)
+//        arr.add(p2)
+//        arr.add(p3)
+//
+//        return arr
+//    }
 
 }
