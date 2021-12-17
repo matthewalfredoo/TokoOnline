@@ -1,5 +1,6 @@
 package com.sampel.tokoonline.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -47,8 +48,17 @@ class DetailItemMenuKantinActivity : AppCompatActivity(), NumberPicker.OnValueCh
         btnBeliSekarangDetailAkun = findViewById(R.id.btnBeliSekarangDetailAkun)
 
 
-        btnBeliSekarangDetailAkun.setOnClickListener {
-            sendTransaksiMenuKantin()
+        if(s.getStatusLogin() == true) {
+            btnBeliSekarangDetailAkun.setOnClickListener {
+                sendTransaksiMenuKantin()
+            }
+        }
+        else {
+            btnBeliSekarangDetailAkun.setOnClickListener {
+                val intent = Intent(applicationContext, LoginActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                startActivity(intent)
+            }
         }
 
         getInfo()

@@ -33,7 +33,6 @@ class HomeFragment() : Fragment() {
 
     lateinit var vpSlider: ViewPager
     lateinit var rvProduk: RecyclerView
-    lateinit var rvProdukTerlaris: RecyclerView
     lateinit var rvElektronik: RecyclerView
 
     private var listItemMenuKantin: ArrayList<ItemMenuKantinModel> = ArrayList()
@@ -65,17 +64,11 @@ class HomeFragment() : Fragment() {
         val layoutManager2 = LinearLayoutManager(activity)
         layoutManager2.orientation = LinearLayoutManager.HORIZONTAL
 
-        val layoutManager3 = LinearLayoutManager(activity)
-        layoutManager3.orientation = LinearLayoutManager.HORIZONTAL
-
         rvProduk.adapter = AdapterProduk(this.requireActivity(), listItemMenuKantin)
         rvProduk.layoutManager = layoutManager
 
-        rvProdukTerlaris.adapter = AdapterProduk(this.requireActivity(), listItemMenuKantin)
-        rvProdukTerlaris.layoutManager = layoutManager2
-
         rvElektronik.adapter = AdapterProduk(this.requireActivity(), listItemMenuKantin)
-        rvElektronik.layoutManager = layoutManager3
+        rvElektronik.layoutManager = layoutManager2
     }
 
     fun getItemMenuKantin() {
@@ -101,7 +94,6 @@ class HomeFragment() : Fragment() {
     fun init(view: View) {
         vpSlider = view.findViewById(R.id.vp_slider)
         rvProduk = view.findViewById(R.id.rv_produk)
-        rvProdukTerlaris = view.findViewById(R.id.rv_produkTerlaris)
         rvElektronik = view.findViewById(R.id.rv_elektronik)
     }
 
