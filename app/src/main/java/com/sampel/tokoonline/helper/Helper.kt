@@ -9,6 +9,6 @@ class Helper {
     }
 
     companion object{
-        val BASE_URL = "http://172.16.177.133:8000/"
+        val BASE_URL = "http://172.16.144.242:8000/"
     }
 }
